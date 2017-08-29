@@ -16,7 +16,9 @@
 @import "@material/animation/variables";
 @import "@material/elevation/mixins";
 @import "@material/ripple/mixins";
+@import "@material/theme/functions";
 @import "@material/theme/mixins";
+@import "./variables";
 
 @mixin mdc-fab-bg-color($bg-color) {
   @include mdc-theme-prop(background-color, $bg-color);
@@ -29,6 +31,19 @@
 @mixin mdc-fab-ripple($ripple-config) {
   @include mdc-ripple-bg(map-merge((pseudo: "::before"), $ripple-config));
   @include mdc-ripple-fg(map-merge((pseudo: "::after"), $ripple-config));
+}
+
+@mixin mdc-fab-color($bg-color) {
+  @include mdc-fab-bg-color($bg-color);
+  $light-or-dark: mdc-theme-light-or-dark($bg-color);
+  @if ($light-or-dark == 'light') {
+    @include mdc-fab-fg-color(text-primary-on-dark);
+    @include mdc-fab-ripple($light-ripple-config);
+  }
+  @else {
+    @include mdc-fab-fg-color(text-primary-on-light);
+    @include mdc-fab-ripple(()); //default dark ripple
+  }
 }
 
 @mixin mdc-fab-base_ {
