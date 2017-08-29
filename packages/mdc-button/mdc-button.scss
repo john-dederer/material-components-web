@@ -106,7 +106,7 @@
   }
 
   &.mdc-button--dense {
-    line-height: 28px;
+    line-height: 27px;  // To accommodate odd font size of dense button
   }
 }
 
